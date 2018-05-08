@@ -1,0 +1,16 @@
+
+version: "3"
+# define services (containers) that should be running
+services:
+  # define parameters for installing this service
+  jira-md:
+    build: .
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/usr/src/j2m
+      - ./entrypoint.sh:/entrypoint.sh
+    ports:
+      - "9876:9876"
+    command: "tail -f /dev/null"
+    container_name: jira-md
