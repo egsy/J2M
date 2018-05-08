@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var J2M = require('../J2M');
+var J2M = require('../j2m');
 var settings = require('./settings');
 
 var readline = require('readline');

@@ -1,11 +1,11 @@
 {
-  "name": "J2M",
+  "name": "j2m",
   "homepage": "https://github.com/FokkeZB/J2M",
   "authors": [
     "Fokke Zandbergen <mail@fokkezb.nl>"
   ],
   "description": "Convert from JIRA text formatting to GitHub Flavored MarkDown and back again",
-  "main": "src/J2M.js",
+  "main": "src/j2m.js",
   "moduleType": [
     "globals",
     "node"
