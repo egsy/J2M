@@ -1,90 +1,57 @@
-> **UNMAINTAINED** This Project Is No Longer Maintained
+# jira-md
 
--------------------------------------------------------
-
-# J2M
 ## JIRA to MarkDown text format converter
-Convert from JIRA text formatting to GitHub Flavored MarkDown and back again. Just because I got tired of reformatting text between GitHub (PR's) and JIRA.
 
+This project is based off the currently unmaintained J2M project by Fokke Zandbergen (http://j2m.fokkezb.nl/). In the author's words:
 
-## Library
+> Convert from JIRA text formatting to GitHub Flavored MarkDown and back again. Just because I got tired of reformatting text between GitHub (PR's) and JIRA.
+
+I likewise quickly grew tired of Jira's formatting style and searched for a way to quickly convert files. I also didn't want my local environment to get bogged down in dependencies.
+
+### Requirements
+
+- docker-compose
+
 ### Installation
-The J2M library is available via bower (for frontend usage) and npm (for node usage):
 
 ```
-$ bower install J2M --save
-```
-```
-$ npm install j2m --save
+git clone https://github.com/egsy/jira-md.git
+cd jira-md
+docker-compose build && docker-compose up -d
 ```
 
 ### Usage
-J2M exposes 2 methods: `toJ` and `toM` for converting to Jira markup and to markdown.
 
-- `J2M.toJ(markdown : string) : string`
-- `J2M.toM(jira : string) : string`
+The following shows you how to run jira-md as a command line utility.
+```
+docker-compose exec jira-md j2m [--toM|--toJ] [--stdin] $filename
 
-#### Usage Example:
-```JavaScript
-var J2M = require('J2M');
-
-var input = '## cool markdown';
-var jira = J2M.toJ(input);
-var markdownAgain = J2M.toM(jira);
+Options:
+--toM, -m:    Treat input as jira text and convert it to Markdown
+--toJ, -j:    Treat input as markdown text and convert it to Jira
+--stdin:      Read input from stdin. In this case the give filename is ignored
 ```
 
+See [original documentation](https://github.com/FokkeZB/J2M) for more information  about the methods exposed and usage.
 
-## CLI
-J2M is also available as a command line utility.
+### Example
 
-### Installation
-```
-$ npm install -g j2m
-```
+- Test installation by running jira-md on the README.md file in this repo
 
-### Usage
-```
-$ j2m [--toM|--toJ] [--stdin] $filename 
-
-Options: 
---toM, -m:    Treat input as jira text and convert it to Markdown 
---toJ, -j:    Treat input as markdown text and convert it to Jira 
---stdin:      Read input from stdin. In this case the give filename is ignored 
-```
-
-#### Usage Example
 ```bash
-# convert notes to jira markup and copy it to the clipboard (mac)
-j2m --toJ notes.md | pbcopy
-
-# retrieve some file in jira markup and save it as markdown
-curl http://someserver.com/jira.txt | j2m --toM --stdin > notee.md
+docker-compose exec jira-md j2m --toJ README.md
 ```
 
-## Website
-Use J2M online at: [http://j2m.fokkezb.nl/](http://j2m.fokkezb.nl/) (updated automagically)
+- Convert notes to jira markup and copy it to the clipboard (mac)
 
-## Roadmap
-I hope to extend TiCons with the following features:
+```bash
 
-* Add as much syntax support as time allows me and need drives me :)
+docker-compose exec jira-md j2m --toJ README.md| pbcopy
 
-Feel free to [mail](mail@fokkezb.nl) me or fork the code and send a pull-request.
+```
 
-## License
+- retrieve some file in jira markup and save it as markdown
 
-<pre>
-Copyright 2013 Fokke Zandbergen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-</pre>
+```bash
+ curl http://someserver.com/jira.txt | j2m --toM --stdin > notee.md
+```
